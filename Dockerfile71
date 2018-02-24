@@ -1,0 +1,47 @@
+FROM php:7.1.8
+
+RUN apt-get update && apt-get install -y \
+    bash \
+    geoip-database \
+    geoip-database-extra \
+    libc-client-dev \
+    libgeoip-dev \
+    libicu-dev \
+    libkrb5-dev \
+    libmcrypt-dev \
+    libmemcached-dev \
+    libpng-dev \
+    libtidy-dev \
+    libxml2-dev \
+    mysql-client \
+    wget
+
+RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl
+
+RUN pecl install \
+    apcu \
+    memcached \
+    redis \
+    xdebug
+
+RUN docker-php-ext-enable \
+    apcu \
+    memcached \
+    redis \
+    xdebug
+
+RUN docker-php-ext-install \
+    bcmath \
+    dom \
+    gd \
+    imap \
+    intl \
+    json \
+    mbstring \
+    mcrypt \
+    opcache \
+    pcntl \
+    pdo \
+    pdo_mysql \
+    soap \
+    tidy
