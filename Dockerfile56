@@ -1,0 +1,51 @@
+FROM php:5.6.31
+
+RUN apt-get update && apt-get install -y \
+    bash \
+    geoip-database \
+    geoip-database-extra \
+    libc-client-dev \
+    libgeoip-dev \
+    libicu-dev \
+    libkrb5-dev \
+    libmcrypt-dev \
+    libmemcached-dev \
+    libpng-dev \
+    libtidy-dev \
+    libxml2-dev \
+    mysql-client \
+    wget
+
+RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl
+
+RUN pecl install \
+    apcu-4.0.11 \
+    geoip \
+    memcache \
+    memcached-2.2.0 \
+    redis \
+    xdebug-2.5.5
+
+RUN docker-php-ext-enable \
+    apcu \
+    geoip \
+    memcache \
+    memcached \
+    redis \
+    xdebug
+
+RUN docker-php-ext-install \
+    dom \
+    gd \
+    imap \
+    intl \
+    json \
+    mbstring \
+    mcrypt \
+    mysql \
+    opcache \
+    pdo \
+    pdo_mysql \
+    soap \
+    tidy \
+    bcmath
